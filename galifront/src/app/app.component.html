@@ -1,13 +1,25 @@
 <p>
   <mat-toolbar>
-    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button> -->
     <span>GaliPhone</span>
     
     <!-- Enlace para navegar a ClienteComponent -->
-    <a mat-button routerLink="/clientes">Clientes</a>
-    <a mat-button routerLink="/productos">Productos</a>
+
+    <a mat-button routerLink="/clientes">CLIENTES</a>
+    <a mat-button routerLink="/productos">PRODUCTOS</a>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="'/ftth'">
+        FTTH
+      </button>
+      <button mat-menu-item [routerLink]="'/movil'">
+        MÓVIL
+      </button>
+      <button mat-menu-item [routerLink]="'/cloud'">
+        CLOUD
+      </button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menu">
+      ÓRDENES
+    </button>
   </mat-toolbar>
 </p>
 
