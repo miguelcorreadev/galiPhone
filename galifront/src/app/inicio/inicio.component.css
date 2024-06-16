@@ -1,0 +1,47 @@
+.large-button {
+    width: 200px;
+    height: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    margin: 20px; /* Espacio entre los botones */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: transform 0.5s ease; /* Transición suave de 0.5 segundos */
+  }
+  .large-button:hover {
+    transform: scale(1.1); /* Aumenta el tamaño al 110% cuando se pone el ratón encima */
+  }
+  .button-blue {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .button-green {
+    background-color: #28A745;
+    color: white;
+  }
+  
+  .button-yellow {
+    background-color: #FFC107;
+    color: white;
+  }
+  
+  .button-red {
+    background-color: #DC3545;
+    color: white;
+  }
+  
+  .button-purple {
+    background-color: #6F42C1;
+    color: white;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }

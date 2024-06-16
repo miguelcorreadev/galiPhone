@@ -8,9 +8,29 @@ table {
     width: 100%;
 }
 
+.mat-button-link {
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    color: white !important; /* Establece el color del texto en blanco */
+  }
+
 .example-button-row {
     display: table-cell;
     width: 490px;
 }
-
-/*-----------------------------------------------------------------------------------------------------------*/
+/* Estilos para el mat-toolbar */
+.mat-toolbar {
+    background-color: #007BFF; /* Color azul */
+    color: white; /* Color del texto */
+  }
+  .mat-menu-item:hover {
+    background-color: #046ddd; 
+    color: white;
+  }
+  .custom-menu {
+    background-color: #007BFF; /* Color de fondo azul */
+    color: white; /* Color del texto en blanco */
+  }
+  .custom-menu:hover {
+    background-color:  #046ddd;; 
+    color: white;
+  }

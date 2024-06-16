@@ -23,12 +23,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ClienteComponent } from './cliente/cliente.component';
 import { ProductoComponent } from './producto/producto.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FTTHComponent } from './ftth/ftth.component';
+import { CloudComponent } from './cloud/cloud.component';
+import { MobileComponent } from './mobile/mobile.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteComponent,  // Agregar ClienteComponent aquí
     ProductoComponent, // Agregar ProductoComponent aquí
+    FTTHComponent,
+    CloudComponent,
+    MobileComponent,
+    InicioComponent,
     PageNotFoundComponent
   ],
   imports: [

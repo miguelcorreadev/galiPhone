@@ -1,21 +1,23 @@
 <p>
   <mat-toolbar>
-    <span>GaliPhone</span>
+    <span><a mat-button routerLink="/inicio" class="mat-button-link">GaliPhone</a></span>
     
     <!-- Enlace para navegar a ClienteComponent -->
 
-    <a mat-button routerLink="/clientes">CLIENTES</a>
-    <a mat-button routerLink="/productos">PRODUCTOS</a>
-    <mat-menu #menu="matMenu">
-      <a mat-button routerLink="/ftth">FTTH</a>
-      <button mat-menu-item [routerLink]="'/movil'">
+    <a mat-button routerLink="/clientes" class="mat-button-link">CLIENTES</a>
+    <a mat-button routerLink="/productos" class="mat-button-link">PRODUCTOS</a>
+    <mat-menu #menu="matMenu" class="custom-menu">
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/ftth'">
+        FTTH
+      </button>
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/movil'">
         MÓVIL
       </button>
-      <button mat-menu-item [routerLink]="'/cloud'">
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/cloud'">
         CLOUD
       </button>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="menu">
+    <button class="custom-menu" mat-button [matMenuTriggerFor]="menu">
       ÓRDENES
     </button>
   </mat-toolbar>

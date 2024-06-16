@@ -5,22 +5,21 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class FTTHService {
-  private API_SERVER = "http://localhost:8082/ftth/";
+export class CloudService {
+  private API_SERVER = "http://localhost:8083/cloud/";
 
   constructor(private httpClient: HttpClient) { }
 
 
-
-  public getAllFTTH(): Observable<any>{
+  public getAllCloud(): Observable<any>{
     return this.httpClient.get(this.API_SERVER);
   }
 
-  public saveFTTH (ftth:any): Observable<any>{
-    return this.httpClient.post(this.API_SERVER,ftth);
+  public saveCloud (cloud:any): Observable<any>{
+    return this.httpClient.post(this.API_SERVER,cloud);
   }
 
-  public deleteFTTH(id):Observable<any>{
+  public deleteCloud(id):Observable<any>{
     return this.httpClient.delete(this.API_SERVER + "delete/"+id);
   }
 

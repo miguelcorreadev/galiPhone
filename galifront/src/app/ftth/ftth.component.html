@@ -17,7 +17,7 @@
       </mat-card-header>
   
       <div class="formularioRegistro">
-        <form [formGroup]="productoForm" (ngSubmit)="guardar()">
+        <form [formGroup]="ftthForm" (ngSubmit)="guardar()">
           <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Nombre</mat-label>
@@ -63,18 +63,18 @@
           <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Fecha Alta</mat-label>
-              <input matInput type="text" formControlName="fechaAlta" class="form-control">
+              <input matInput type="date" formControlName="fechaAlta" class="form-control">
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Fecha Modificación</mat-label>
-                <input matInput type="text" formControlName="fechaModif" class="form-control">
+                <input matInput type="date" formControlName="fechaModif" class="form-control">
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Fecha Baja</mat-label>
-                <input matInput type="text" formControlName="fechaBaja" class="form-control">
+                <input matInput type="date" formControlName="fechaBaja" class="form-control">
               </mat-form-field>
         </div>
-          <button mat-button color="primary" type="submit" [disabled]="productoForm.invalid">Guardar</button>
+          <button mat-button color="primary" type="submit" [disabled]="ftthForm.invalid">Guardar</button>
         </form>
       </div>
     </mat-card>
@@ -100,7 +100,7 @@
           <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="tipo">
+        <ng-container matColumnDef="velocidad">
           <th mat-header-cell mat-sort-header *matHeaderCellDef> velocidad </th>
           <td mat-cell *matCellDef="let element"> {{element.velocidad}} </td>
         </ng-container>
@@ -110,19 +110,39 @@
           <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
         </ng-container>
     
-        <ng-container matColumnDef="char1">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>Estado </th>
-          <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        <ng-container matColumnDef="fijo">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>Fijo </th>
+          <td mat-cell *matCellDef="let element"> {{element.fijo}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="char2">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>Operacion </th>
-            <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
+        <ng-container matColumnDef="portabilidad">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Portabilidad </th>
+            <td mat-cell *matCellDef="let element"> {{element.portabilidad}} </td>
           </ng-container>
     
-          <ng-container matColumnDef="char3">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha Alta </th>
+          <ng-container matColumnDef="operacion">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> operacion</th>
+            <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+          </ng-container>
+          <ng-container matColumnDef="operadora">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Operadora </th>
+            <td mat-cell *matCellDef="let element"> {{element.operadora}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaAlta">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha  Alta </th>
             <td mat-cell *matCellDef="let element"> {{element.fechaAlta}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaModif">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha Modificación </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaModif}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaBaja">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha Baja </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaBaja}} </td>
           </ng-container>
     
         <ng-container matColumnDef="options">

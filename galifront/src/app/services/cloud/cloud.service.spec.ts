@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FTTHService } from './ftth.service';
+import { CloudService } from './cloud.service';
 
-describe('FtthService', () => {
-  let service: FTTHService;
+describe('CloudService', () => {
+  let service: CloudService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FTTHService);
+    service = TestBed.inject(CloudService);
   });
 
   it('should be created', () => {

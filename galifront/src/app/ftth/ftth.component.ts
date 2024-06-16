@@ -21,7 +21,7 @@ export class FTTHComponent implements OnInit {
   clientes: any[];
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'email', 'nombre', 'velocidad', 'fijo', 'portatbilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
+  displayedColumns: string[] = ['id', 'email', 'nombre', 'velocidad', 'fijo', 'portabilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
 
   panelOpenState = false;
 
@@ -37,24 +37,25 @@ export class FTTHComponent implements OnInit {
       email: [''],
       nombre: ['', Validators.required],
       velocidad: ['', Validators.required],
-      fijo: ['', Validators.required],
-      portabilidad: ['', Validators.required],
-      operacion: ['', Validators.required],
-      estado: ['', Validators.required],
-      operadora: ['', Validators.required],
+      fijo: [''],
+      portabilidad: [''],
+      operacion: [''],
+      estado: [''],
+      operadora: [''],
       fechaAlta: ['', Validators.required],
-      fechaModif: ['', Validators.required],
-      fechaBaja: ['', Validators.required],
+      fechaModif: [''],
+      fechaBaja: [''],
     });
 
     this.loadFTTHs();
     this.loadClientes();
+    
   }
 
   loadFTTHs(): void {
-    this.ftthService.getAllFTTHs().subscribe(
+    this.ftthService.getAllFTTH().subscribe(
       resp => {
-        this.ftth = resp;
+        this.ftths = resp;
         this.setDataAndPagination();
       },
       error => {
@@ -76,7 +77,7 @@ export class FTTHComponent implements OnInit {
 
   guardar(): void {
     if (this.ftthForm.valid) {
-      this.ftthService.saveProducto(this.ftthForm.value).subscribe(
+      this.ftthService.saveFTTH(this.ftthForm.value).subscribe(
         resp => {
           this.ftthForm.reset();
           this.ftths = this.ftths.filter(ftth => resp.id !== ftth.id);
@@ -93,35 +94,39 @@ export class FTTHComponent implements OnInit {
     }
   }
 
-  eliminar(producto): void {
-    this.productoService.deleteProducto(producto.id).subscribe(
+  eliminar(ftth): void {
+    this.ftthService.deleteFTTH(ftth.id).subscribe(
       resp => {
         if (resp) {
-          this.productos = this.productos.filter(p => p.id !== producto.id);
+          this.ftths = this.ftths.filter(p => p.id !== ftth.id);
           this.setDataAndPagination();
         }
       },
       error => {
-        console.error('Error deleting producto:', error);
+        console.error('Error deleting FTTH:', error);
       }
     );
   }
 
-  editar(producto): void {
-    this.productoForm.setValue({
-      id: producto.id,
-      email: producto.email,
-      nombre: producto.nombre,
-      tipo: producto.tipo, 
-      char1: producto.char1,
-      char2: producto.char2,
-      char3: producto.char3,
+  editar(ftth): void {
+    this.ftthForm.setValue({
+      id: ftth.id,
+      email: ftth.email,
+      nombre: ftth.nombre,
+      velocidad: ftth.velocidad,
+      fijo: ftth.fijo,
+      portabilidad: ftth.portabilidad,
+      operacion: ftth.operacion,
+      estado: ftth.estado,
+      operadora: ftth.operadora,
+      fechaAlta: ftth.fechaAlta,
+      fechaModif: ftth.fechaModif,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }
 
   setDataAndPagination(): void {
-    this.dataSource = new MatTableDataSource(this.productos);
+    this.dataSource = new MatTableDataSource(this.ftths);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

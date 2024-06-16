@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/FTTH/")
+@RequestMapping("/ftth/")
 public class FTTHREST {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class FTTHREST {
 	private ResponseEntity<FTTH> saveFTTH (@RequestBody FTTH FTTH){
 		try {
 			FTTH FTTHGuardado = FTTHService.save(FTTH);
-			return ResponseEntity.created(new URI("/FTTH/"+FTTHGuardado.getId())).body(FTTHGuardado);
+			return ResponseEntity.created(new URI("/ftth/"+FTTHGuardado.getId())).body(FTTHGuardado);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
