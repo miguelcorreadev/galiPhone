@@ -1,106 +1,106 @@
 <mat-expansion-panel [(expanded)]="panelOpenState" >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Agregar un operadora
-      </mat-panel-title>
-      <mat-panel-description>
-        Click aqui...
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-  
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Crear operadora</mat-card-title>
-        <mat-card-subtitle>Todos los campos son obligatorios</mat-card-subtitle>
-      </mat-card-header>
-  
-      <div class="formularioRegistro">
-        <form [formGroup]="operadoraForm" (ngSubmit)="guardar()">
-          <div class="form-group">
-            <mat-form-field appearance="fill">
-              <mat-label>Nombre</mat-label>
-              <input matInput type="text" formControlName="nombre" class="form-control">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Servicio</mat-label>
-              <input matInput type="text" formControlName="servicio" class="form-control">
-            </mat-form-field>
-          </div>
-         
-        
-          <button mat-button color="primary" type="submit" [disabled]="operadoraForm.invalid">Guardar</button>
-        </form>
-      </div>
-    </mat-card>
-  
-  </mat-expansion-panel>
-  
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Agregar una operadora
+    </mat-panel-title>
+    <mat-panel-description>
+      Click aqui...
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Operadoras registradas</mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-title>Crear operadora</mat-card-title>
+      <mat-card-subtitle>Todos los campos son obligatorios</mat-card-subtitle>
     </mat-card-header>
-    <div class="mat-elevation-z8">
-      <table mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
-    
-        <ng-container matColumnDef="id">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="nombre">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="servico">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef> Servicio </th>
-          <td mat-cell *matCellDef="let element"> {{element.servicio}} </td>
-        </ng-container>
 
-        
-    
-        <ng-container matColumnDef="options">
-          <th mat-header-cell *matHeaderCellDef> Opciones </th>
-          <td mat-cell *matCellDef="let element">
-    
-            <div class="example-button-container">
-              <button mat-mini-fab color="basic" aria-label="Example icon button with a delete icon"
-                (click)="editar(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon"
-                (click)="eliminar(element)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-      </table>
-      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]">
-        <ng-template mat-paginator-range-label>
-          {{ paginator.pageIndex * paginator.pageSize + 1 }} - {{ (paginator.pageIndex + 1) * paginator.pageSize }} de {{ paginator.length }}
-        </ng-template>
+    <div class="formularioRegistro">
+      <form [formGroup]="operadoraForm" (ngSubmit)="guardar()">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" class="form-control">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Servicios</mat-label>
+            <input matInput type="text" formControlName="servicios" class="form-control">
+          </mat-form-field>
+        </div>
+       
       
-        <button mat-icon-button (click)="goToFirstPage()" [disabled]="paginator.pageIndex === 0">
-            <mat-icon>first_page</mat-icon>
-          </button>
-          <button mat-icon-button (click)="goToPreviousPage()" [disabled]="paginator.pageIndex === 0">
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          <button mat-icon-button (click)="goToNextPage()" [disabled]="!paginator.hasNextPage()">
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-          <button mat-icon-button (click)="goToLastPage()" [disabled]="!paginator.hasNextPage()">
-            <mat-icon>last_page</mat-icon>
-          </button>
-      </mat-paginator>
+        <button mat-button color="primary" type="submit" [disabled]="operadoraForm.invalid">Guardar</button>
+      </form>
     </div>
   </mat-card>
+
+</mat-expansion-panel>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Operadora registrados</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <div class="mat-elevation-z8">
+    <table mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="servicios">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Servicios </th>
+        <td mat-cell *matCellDef="let element"> {{element.servicios}} </td>
+      </ng-container>
+
+      
+  
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+        <td mat-cell *matCellDef="let element">
+  
+          <div class="example-button-container">
+            <button mat-mini-fab color="basic" aria-label="Example icon button with a delete icon"
+              (click)="editar(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon"
+              (click)="eliminar(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+      <ng-template mat-paginator-range-label>
+        {{ paginator.pageIndex * paginator.pageSize + 1 }} - {{ (paginator.pageIndex + 1) * paginator.pageSize }} de {{ paginator.length }}
+      </ng-template>
+    
+      <button mat-icon-button (click)="goToFirstPage()" [disabled]="paginator.pageIndex === 0">
+          <mat-icon>first_page</mat-icon>
+        </button>
+        <button mat-icon-button (click)="goToPreviousPage()" [disabled]="paginator.pageIndex === 0">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="goToNextPage()" [disabled]="!paginator.hasNextPage()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <button mat-icon-button (click)="goToLastPage()" [disabled]="!paginator.hasNextPage()">
+          <mat-icon>last_page</mat-icon>
+        </button>
+    </mat-paginator>
+  </div>
+</mat-card>
 

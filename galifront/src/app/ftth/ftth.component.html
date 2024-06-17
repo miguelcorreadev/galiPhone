@@ -52,17 +52,29 @@
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Operación</mat-label>
-                <input matInput type="text" formControlName="operacion" class="form-control">
+                <mat-select formControlName="operacion">
+                  <mat-option *ngFor="let operacion of operaciones" [value]="operacion.nombre">
+                    {{ operacion.nombre }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
           </div>
           <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Estado</mat-label>
-              <input matInput type="text" formControlName="estado" class="form-control">
+              <mat-select formControlName="estado">
+                <mat-option *ngFor="let estado of estados" [value]="estado.nombre">
+                  {{ estado.nombre }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Operadora</mat-label>
-              <input matInput type="text" formControlName="operadora" class="form-control">
+              <mat-select formControlName="operadora">
+                <mat-option *ngFor="let operadora of operadoras" [value]="operadora.nombre">
+                  {{ operadora.nombre }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
           <div class="form-group">

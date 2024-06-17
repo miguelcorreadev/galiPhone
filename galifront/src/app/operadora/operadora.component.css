@@ -1,31 +1,31 @@
 .formularioRegistro{
-    padding-left: 20%;
-    padding-right: 20%;
-    margin-top: 3%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* Añade espacio entre los grupos de campos */
+  padding-left: 20%;
+  padding-right: 20%;
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Añade espacio entre los grupos de campos */
 }
 .form-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px; /* Añade espacio entre los campos dentro del mismo grupo */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Añade espacio entre los campos dentro del mismo grupo */
+}
+mat-form-field {
+  flex: 1; /* Permite que los campos tomen el mismo ancho */
+}
+
+@media (max-width: 600px) {
+  .form-group {
+    flex-direction: column;
   }
-  mat-form-field {
-    flex: 1; /* Permite que los campos tomen el mismo ancho */
-  }
-  
-  @media (max-width: 600px) {
-    .form-group {
-      flex-direction: column;
-    }
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
 .example-button-row {
-    display: table-cell;
-    width: 490px;
+  display: table-cell;
+  width: 490px;
 }

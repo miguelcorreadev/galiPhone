@@ -1,5 +1,6 @@
 package galidev.galiphone.mc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,7 +28,8 @@ public class Mobile implements Serializable {
 	private String operacion;
 	private String estado;
 	private String operadora;
-	private Date fechaAlta;
-	private Date fechaModif;
-	private Date fechaBaja;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate fechaAlta;
+	private LocalDate fechaModif;
+	private LocalDate fechaBaja;
 }

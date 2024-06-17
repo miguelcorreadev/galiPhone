@@ -21,7 +21,7 @@ export class OperadoraComponent implements OnInit {
   clientes: any[];
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'nombre', 'servicio', 'options'];
+  displayedColumns: string[] = ['id', 'nombre', 'servicios', 'options'];
 
   panelOpenState = false;
 
@@ -35,7 +35,7 @@ export class OperadoraComponent implements OnInit {
     this.operadoraForm = this.fb.group({
       id: [''],
       nombre: ['', Validators.required],
-      servicio: [''],
+      servicios: [''],
     });
 
     this.loadOperadoras();
@@ -102,7 +102,7 @@ export class OperadoraComponent implements OnInit {
     this.operadoraForm.setValue({
       id: operadora.id,
       nombre: operadora.nombre,
-      tipo: operadora.servicio,
+      tipo: operadora.tipo,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }

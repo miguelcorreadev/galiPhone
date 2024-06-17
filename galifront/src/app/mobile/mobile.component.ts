@@ -5,6 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClienteService } from '../services/cliente/cliente.service';
 import { MobileService } from '../services/mobile/mobile.service';
+import { OperadoraService } from '../services/operadora/operadora.service';
+import { OperacionService } from '../services/operacion/operacion.service';
+import { EstadoService } from '../services/estado/estado.service';
 
 @Component({
   selector: 'app-mobile',
@@ -19,6 +22,9 @@ export class MobileComponent implements OnInit {
   mobileForm: FormGroup;
   mobiles: any[];
   clientes: any[];
+  operaciones: any[];
+  operadoras: any[];
+  estados: any[];
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = ['id', 'email', 'nombre', 'capacidad', 'mobile', 'portabilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
@@ -28,7 +34,10 @@ export class MobileComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public mobileService: MobileService,
-    public clienteService: ClienteService
+    public clienteService: ClienteService,
+    public operacionService: OperacionService,
+    public operadoraService: OperadoraService,
+    public estadoService: EstadoService,
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +63,9 @@ export class MobileComponent implements OnInit {
     });
     this.loadMobiles();
     this.loadClientes();
+    this.loadOperaciones();
+    this.loadOperadoras();
+    this.loadEstados();
     
   }
 
@@ -77,6 +89,36 @@ export class MobileComponent implements OnInit {
       },
       error => {
         console.error('Error loading clientes:', error);
+      }
+    );
+  }
+  loadOperaciones(): void {
+    this.operacionService.getAllOperaciones().subscribe(
+      resp => {
+        this.operaciones = resp;
+      },
+      error => {
+        console.error('Error loading operaciones:', error);
+      }
+    );
+  }
+  loadEstados(): void {
+    this.estadoService.getAllEstados().subscribe(
+      resp => {
+        this.estados = resp;
+      },
+      error => {
+        console.error('Error loading estados:', error);
+      }
+    );
+  }
+  loadOperadoras(): void {
+    this.operadoraService.getAllOperadoras().subscribe(
+      resp => {
+        this.operadoras = resp;
+      },
+      error => {
+        console.error('Error loading operadoras:', error);
       }
     );
   }
