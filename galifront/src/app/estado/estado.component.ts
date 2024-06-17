@@ -3,53 +3,52 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProductoService } from '../services/producto/producto.service';
+import { EstadoService } from '../services/estado/estado.service';
 import { ClienteService } from '../services/cliente/cliente.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-estado',
+  templateUrl: './estado.component.html',
+  styleUrls: ['./estado.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class EstadoComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  productoForm: FormGroup;
-  productos: any[];
+  estadoForm: FormGroup;
+  estados: any[];
   clientes: any[];
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'nombre', 'tipo', 'options'];
+  displayedColumns: string[] = ['id', 'nombre', 'options'];
 
   panelOpenState = false;
 
   constructor(
     public fb: FormBuilder,
-    public productoService: ProductoService,
+    public estadoService: EstadoService,
     public clienteService: ClienteService
   ) {}
 
   ngOnInit(): void {
-    this.productoForm = this.fb.group({
+    this.estadoForm = this.fb.group({
       id: [''],
       nombre: ['', Validators.required],
-      tipo: [''],
     });
 
-    this.loadProductos();
+    this.loadEstados();
     this.loadClientes();
   }
 
-  loadProductos(): void {
-    this.productoService.getAllProductos().subscribe(
+  loadEstados(): void {
+    this.estadoService.getAllEstados().subscribe(
       resp => {
-        this.productos = resp;
+        this.estados = resp;
         this.setDataAndPagination();
       },
       error => {
-        console.error('Error loading productos:', error);
+        console.error('Error loading estados:', error);
       }
     );
   }
@@ -66,17 +65,17 @@ export class ProductoComponent implements OnInit {
   }
 
   guardar(): void {
-    if (this.productoForm.valid) {
-      this.productoService.saveProducto(this.productoForm.value).subscribe(
+    if (this.estadoForm.valid) {
+      this.estadoService.saveEstado(this.estadoForm.value).subscribe(
         resp => {
-          this.productoForm.reset();
-          this.productos = this.productos.filter(producto => resp.id !== producto.id);
-          this.productos.push(resp);
+          this.estadoForm.reset();
+          this.estados = this.estados.filter(estado => resp.id !== estado.id);
+          this.estados.push(resp);
           this.setDataAndPagination();
           this.panelOpenState = false; // Cerrar panel de expansión después de guardar
         },
         error => {
-          console.error('Error saving producto:', error);
+          console.error('Error saving estado:', error);
         }
       );
     } else {
@@ -84,31 +83,30 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  eliminar(producto): void {
-    this.productoService.deleteProducto(producto.id).subscribe(
+  eliminar(estado): void {
+    this.estadoService.deleteEstado(estado.id).subscribe(
       resp => {
         if (resp) {
-          this.productos = this.productos.filter(p => p.id !== producto.id);
+          this.estados = this.estados.filter(p => p.id !== estado.id);
           this.setDataAndPagination();
         }
       },
       error => {
-        console.error('Error deleting producto:', error);
+        console.error('Error deleting estado:', error);
       }
     );
   }
 
-  editar(producto): void {
-    this.productoForm.setValue({
-      id: producto.id,
-      nombre: producto.nombre,
-      tipo: producto.tipo,
+  editar(estado): void {
+    this.estadoForm.setValue({
+      id: estado.id,
+      nombre: estado.nombre,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }
 
   setDataAndPagination(): void {
-    this.dataSource = new MatTableDataSource(this.productos);
+    this.dataSource = new MatTableDataSource(this.estados);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

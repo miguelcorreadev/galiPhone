@@ -7,6 +7,9 @@ import { FTTHComponent } from './ftth/ftth.component';
 import { CloudComponent } from './cloud/cloud.component'; 
 import { MobileComponent } from './mobile/mobile.component'; 
 import { InicioComponent } from './inicio/inicio.component'; 
+import { OperadoraComponent } from './operadora/operadora.component';
+import { OperacionComponent } from './operacion/operacion.component';
+import { EstadoComponent } from './estado/estado.component';
 const routes: Routes = [
   { path: 'clientes', component: ClienteComponent }, 
   { path: 'productos', component: ProductoComponent },
@@ -14,6 +17,9 @@ const routes: Routes = [
   { path: 'cloud', component: CloudComponent }, 
   { path: 'mobile', component: MobileComponent },
   { path: 'inicio', component: InicioComponent },  
+  { path: 'operadora', component: OperadoraComponent }, 
+  { path: 'operacion', component: OperacionComponent }, 
+  { path: 'estado', component: EstadoComponent }, 
   { path: '', redirectTo: '../inicio', pathMatch: 'full' }, 
   { path: '**', component: PageNotFoundComponent } 
 ];

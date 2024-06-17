@@ -7,13 +7,12 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "operadora")
-public class Operadora implements Serializable {
+@Table(name = "operacion")
+public class Operacion implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nombre;
-	private String servicios;
 
 }

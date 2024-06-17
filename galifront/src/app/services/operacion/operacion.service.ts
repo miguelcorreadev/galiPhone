@@ -5,22 +5,22 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductoService {
-  private API_SERVER = "http://localhost:8080/productos/";
+export class OperacionService {
+  private API_SERVER = "http://localhost:8080/operaciones/";
 
   constructor(private httpClient: HttpClient) { }
 
 
 
-  public getAllProductos(): Observable<any>{
+  public getAllOperaciones(): Observable<any>{
     return this.httpClient.get(this.API_SERVER);
   }
 
-  public saveProducto (producto:any): Observable<any>{
-    return this.httpClient.post(this.API_SERVER,producto);
+  public saveOperacion (operacion:any): Observable<any>{
+    return this.httpClient.post(this.API_SERVER,operacion);
   }
 
-  public deleteProducto(id):Observable<any>{
+  public deleteOperacion(id):Observable<any>{
     return this.httpClient.delete(this.API_SERVER + "delete/"+id);
   }
 

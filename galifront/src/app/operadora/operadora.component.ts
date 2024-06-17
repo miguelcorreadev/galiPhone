@@ -3,53 +3,53 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProductoService } from '../services/producto/producto.service';
+import { OperadoraService } from '../services/operadora/operadora.service';
 import { ClienteService } from '../services/cliente/cliente.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-operadora',
+  templateUrl: './operadora.component.html',
+  styleUrls: ['./operadora.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class OperadoraComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  productoForm: FormGroup;
-  productos: any[];
+  operadoraForm: FormGroup;
+  operadoras: any[];
   clientes: any[];
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'nombre', 'tipo', 'options'];
+  displayedColumns: string[] = ['id', 'nombre', 'servicio', 'options'];
 
   panelOpenState = false;
 
   constructor(
     public fb: FormBuilder,
-    public productoService: ProductoService,
+    public operadoraService: OperadoraService,
     public clienteService: ClienteService
   ) {}
 
   ngOnInit(): void {
-    this.productoForm = this.fb.group({
+    this.operadoraForm = this.fb.group({
       id: [''],
       nombre: ['', Validators.required],
-      tipo: [''],
+      servicio: [''],
     });
 
-    this.loadProductos();
+    this.loadOperadoras();
     this.loadClientes();
   }
 
-  loadProductos(): void {
-    this.productoService.getAllProductos().subscribe(
+  loadOperadoras(): void {
+    this.operadoraService.getAllOperadoras().subscribe(
       resp => {
-        this.productos = resp;
+        this.operadoras = resp;
         this.setDataAndPagination();
       },
       error => {
-        console.error('Error loading productos:', error);
+        console.error('Error loading operadoras:', error);
       }
     );
   }
@@ -66,17 +66,17 @@ export class ProductoComponent implements OnInit {
   }
 
   guardar(): void {
-    if (this.productoForm.valid) {
-      this.productoService.saveProducto(this.productoForm.value).subscribe(
+    if (this.operadoraForm.valid) {
+      this.operadoraService.saveOperadora(this.operadoraForm.value).subscribe(
         resp => {
-          this.productoForm.reset();
-          this.productos = this.productos.filter(producto => resp.id !== producto.id);
-          this.productos.push(resp);
+          this.operadoraForm.reset();
+          this.operadoras = this.operadoras.filter(operadora => resp.id !== operadora.id);
+          this.operadoras.push(resp);
           this.setDataAndPagination();
           this.panelOpenState = false; // Cerrar panel de expansión después de guardar
         },
         error => {
-          console.error('Error saving producto:', error);
+          console.error('Error saving operadora:', error);
         }
       );
     } else {
@@ -84,31 +84,31 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  eliminar(producto): void {
-    this.productoService.deleteProducto(producto.id).subscribe(
+  eliminar(operadora): void {
+    this.operadoraService.deleteOperadora(operadora.id).subscribe(
       resp => {
         if (resp) {
-          this.productos = this.productos.filter(p => p.id !== producto.id);
+          this.operadoras = this.operadoras.filter(p => p.id !== operadora.id);
           this.setDataAndPagination();
         }
       },
       error => {
-        console.error('Error deleting producto:', error);
+        console.error('Error deleting operadora:', error);
       }
     );
   }
 
-  editar(producto): void {
-    this.productoForm.setValue({
-      id: producto.id,
-      nombre: producto.nombre,
-      tipo: producto.tipo,
+  editar(operadora): void {
+    this.operadoraForm.setValue({
+      id: operadora.id,
+      nombre: operadora.nombre,
+      tipo: operadora.servicio,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }
 
   setDataAndPagination(): void {
-    this.dataSource = new MatTableDataSource(this.productos);
+    this.dataSource = new MatTableDataSource(this.operadoras);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

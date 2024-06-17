@@ -3,53 +3,52 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProductoService } from '../services/producto/producto.service';
+import { OperacionService } from '../services/operacion/operacion.service';
 import { ClienteService } from '../services/cliente/cliente.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-operacion',
+  templateUrl: './operacion.component.html',
+  styleUrls: ['./operacion.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class OperacionComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  productoForm: FormGroup;
-  productos: any[];
+  operacionForm: FormGroup;
+  operaciones: any[];
   clientes: any[];
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'nombre', 'tipo', 'options'];
+  displayedColumns: string[] = ['id', 'nombre', 'options'];
 
   panelOpenState = false;
 
   constructor(
     public fb: FormBuilder,
-    public productoService: ProductoService,
+    public operacionService: OperacionService,
     public clienteService: ClienteService
   ) {}
 
   ngOnInit(): void {
-    this.productoForm = this.fb.group({
+    this.operacionForm = this.fb.group({
       id: [''],
       nombre: ['', Validators.required],
-      tipo: [''],
     });
 
-    this.loadProductos();
+    this.loadOperaciones();
     this.loadClientes();
   }
 
-  loadProductos(): void {
-    this.productoService.getAllProductos().subscribe(
+  loadOperaciones(): void {
+    this.operacionService.getAllOperaciones().subscribe(
       resp => {
-        this.productos = resp;
+        this.operaciones = resp;
         this.setDataAndPagination();
       },
       error => {
-        console.error('Error loading productos:', error);
+        console.error('Error loading operaciones:', error);
       }
     );
   }
@@ -66,17 +65,17 @@ export class ProductoComponent implements OnInit {
   }
 
   guardar(): void {
-    if (this.productoForm.valid) {
-      this.productoService.saveProducto(this.productoForm.value).subscribe(
+    if (this.operacionForm.valid) {
+      this.operacionService.saveOperacion(this.operacionForm.value).subscribe(
         resp => {
-          this.productoForm.reset();
-          this.productos = this.productos.filter(producto => resp.id !== producto.id);
-          this.productos.push(resp);
+          this.operacionForm.reset();
+          this.operaciones = this.operaciones.filter(operacion => resp.id !== operacion.id);
+          this.operaciones.push(resp);
           this.setDataAndPagination();
           this.panelOpenState = false; // Cerrar panel de expansión después de guardar
         },
         error => {
-          console.error('Error saving producto:', error);
+          console.error('Error saving operacion:', error);
         }
       );
     } else {
@@ -84,31 +83,30 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  eliminar(producto): void {
-    this.productoService.deleteProducto(producto.id).subscribe(
+  eliminar(operacion): void {
+    this.operacionService.deleteOperacion(operacion.id).subscribe(
       resp => {
         if (resp) {
-          this.productos = this.productos.filter(p => p.id !== producto.id);
+          this.operaciones = this.operaciones.filter(p => p.id !== operacion.id);
           this.setDataAndPagination();
         }
       },
       error => {
-        console.error('Error deleting producto:', error);
+        console.error('Error deleting operacion:', error);
       }
     );
   }
 
-  editar(producto): void {
-    this.productoForm.setValue({
-      id: producto.id,
-      nombre: producto.nombre,
-      tipo: producto.tipo,
+  editar(operacion): void {
+    this.operacionForm.setValue({
+      id: operacion.id,
+      nombre: operacion.nombre,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }
 
   setDataAndPagination(): void {
-    this.dataSource = new MatTableDataSource(this.productos);
+    this.dataSource = new MatTableDataSource(this.operaciones);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

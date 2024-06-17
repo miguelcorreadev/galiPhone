@@ -27,6 +27,9 @@ import { FTTHComponent } from './ftth/ftth.component';
 import { CloudComponent } from './cloud/cloud.component';
 import { MobileComponent } from './mobile/mobile.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { OperadoraComponent } from './operadora/operadora.component';
+import { OperacionComponent } from './operacion/operacion.component';
+import { EstadoComponent } from './estado/estado.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { InicioComponent } from './inicio/inicio.component';
     CloudComponent,
     MobileComponent,
     InicioComponent,
-    PageNotFoundComponent
+    OperadoraComponent,
+    OperacionComponent,
+    PageNotFoundComponent,
+    EstadoComponent,
   ],
   imports: [
     BrowserModule,
