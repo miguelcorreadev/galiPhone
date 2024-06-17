@@ -28,7 +28,7 @@ export class FTTHComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = ['id', 'email', 'nombre', 'velocidad', 'fijo', 'portabilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
-  filteredClientes = [];
+
   panelOpenState = false;
 
   constructor(
@@ -54,7 +54,6 @@ export class FTTHComponent implements OnInit {
       fechaAlta: ['', Validators.required],
       fechaModif: [''],
       fechaBaja: [''],
-      clienteFiltro: [''], // Campo para el filtro
     });
     //this.filteredClientes = this.clientes;
 
@@ -64,9 +63,7 @@ export class FTTHComponent implements OnInit {
     this.loadOperadoras();
     this.loadEstados();
 
-    this.ftthForm.get('clienteFiltro').valueChanges.subscribe(value => {
-      this.filteredClientes = this.filterClientes(value);
-    });
+  
   }
 
   loadFTTHs(): void {
@@ -121,21 +118,12 @@ export class FTTHComponent implements OnInit {
       }
     );
   }
-  filterClientes(val: string) {
-    if (!val || val.trim() === '') {
-      return this.clientes; // Devuelve todos los clientes si el valor del filtro está vacío
-    }
-    return this.clientes.filter(cliente => 
-      cliente.nombre.toLowerCase().includes(val.toLowerCase()) ||
-      cliente.apellido.toLowerCase().includes(val.toLowerCase())
-    );
-  }
+ 
   guardar(): void {
     if (this.ftthForm.valid) {
       this.ftthService.saveFTTH(this.ftthForm.value).subscribe(
         resp => {
           this.ftthForm.reset();
-          this.ftths = this.ftths.filter(ftth => resp.id !== ftth.id);
           this.ftths.push(resp);
           this.setDataAndPagination();
           this.panelOpenState = false; // Cerrar panel de expansión después de guardar
@@ -176,6 +164,7 @@ export class FTTHComponent implements OnInit {
       operadora: ftth.operadora,
       fechaAlta: ftth.fechaAlta,
       fechaModif: ftth.fechaModif,
+      fechaBaja: ftth.fechaBaja,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }
@@ -208,5 +197,8 @@ export class FTTHComponent implements OnInit {
     this.sort.active = column;
     this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
     this.dataSource.sort = this.sort;
+  }
+  onReset(): void {
+    this.ftthForm.reset();
   }
 }

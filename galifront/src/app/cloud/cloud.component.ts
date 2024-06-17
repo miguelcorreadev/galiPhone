@@ -5,6 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClienteService } from '../services/cliente/cliente.service';
 import { CloudService } from '../services/cloud/cloud.service';
+import { OperadoraService } from '../services/operadora/operadora.service';
+import { OperacionService } from '../services/operacion/operacion.service';
+import { EstadoService } from '../services/estado/estado.service';
 
 @Component({
   selector: 'app-cloud',
@@ -20,9 +23,12 @@ export class CloudComponent implements OnInit {
   cloudForm: FormGroup;
   clouds: any;
   clientes: any;
+  operaciones: any[];
+  operadoras: any[];
+  estados: any[];
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'email', 'password', 'nombre', 'storage', 'rol', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
+  displayedColumns: string[] = ['id', 'email', 'password', 'nombre', 'storage', 'rol', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
 
   panelOpenState = false;
   filtroCloud: string = '';
@@ -30,7 +36,10 @@ export class CloudComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public cloudService: CloudService,
-    public clienteService: ClienteService
+    public clienteService: ClienteService,
+    public operacionService: OperacionService,
+    public operadoraService: OperadoraService,
+    public estadoService: EstadoService,
   ) {
 
   }
@@ -44,11 +53,14 @@ export class CloudComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
       nombre: ['', Validators.required],
-      Storage: ['', Validators.required],
+      storage: ['', Validators.required],
       rol: ['', Validators.required],
-      fechaAlta:  [''],
-      fechaModif:  [''],
-      fechaBaja:  [''],
+      operacion: [''],
+      estado: [''],
+      operadora: [''],
+      fechaAlta: ['', Validators.required],
+      fechaModif: [''],
+      fechaBaja: [''],
     });
 
     this.cloudService.getAllCloud().subscribe(resp => {
@@ -56,6 +68,11 @@ export class CloudComponent implements OnInit {
     },
       error => { console.error(error) }
     );
+    this.loadClientes();
+    this.loadClouds();
+    this.loadOperaciones();
+    this.loadOperadoras();
+    this.loadEstados();
 
     this.cloudService.getAllCloud().subscribe(resp => {
       this.clouds = resp;
@@ -71,7 +88,58 @@ export class CloudComponent implements OnInit {
     const filtroValor = this.filtroCloud.trim().toLowerCase();
     this.dataSource.filter = filtroValor;
   }
+  loadClouds(): void {
+    this.cloudService.getAllCloud().subscribe(
+      resp => {
+        this.clouds = resp;
+        this.setDataAndPagination();
+      },
+      error => {
+        console.error('Error loading Clouds:', error);
+      }
+    );
+  }
 
+  loadClientes(): void {
+    this.clienteService.getAllClientes().subscribe(
+      resp => {
+        this.clientes = resp;
+      },
+      error => {
+        console.error('Error loading clientes:', error);
+      }
+    );
+  }
+  loadOperaciones(): void {
+    this.operacionService.getAllOperaciones().subscribe(
+      resp => {
+        this.operaciones = resp;
+      },
+      error => {
+        console.error('Error loading operaciones:', error);
+      }
+    );
+  }
+  loadEstados(): void {
+    this.estadoService.getAllEstados().subscribe(
+      resp => {
+        this.estados = resp;
+      },
+      error => {
+        console.error('Error loading estados:', error);
+      }
+    );
+  }
+  loadOperadoras(): void {
+    this.operadoraService.getAllOperadoras().subscribe(
+      resp => {
+        this.operadoras = resp;
+      },
+      error => {
+        console.error('Error loading operadoras:', error);
+      }
+    );
+  }
   /**
    * Metodo que llama el boton de guardar. Enviamos la peticion la servicio, luego reseteamos el formulario, filtramos
    * y reseteamos la paginacion.
@@ -111,8 +179,11 @@ export class CloudComponent implements OnInit {
       email: cloud.email ,
       password: cloud.password ,
       nombre: cloud.nombre,
-      Storage: cloud.storage,
+      storage: cloud.storage,
       rol: cloud.rol,
+      operacion: cloud.operacion,
+      operadora: cloud.operadora,
+      estado: cloud.estado,
       fechaAlta: cloud.fechaAlta,
       fechaModif: cloud.fechaModif,
       fechaBaja: cloud.fechaBaja
@@ -153,4 +224,10 @@ export class CloudComponent implements OnInit {
     this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
     this.dataSource.sort = this.sort;
   }
+
+  showPassword = false;
+
+togglePasswordVisibility(): void {
+  this.showPassword = !this.showPassword;
+}
 }

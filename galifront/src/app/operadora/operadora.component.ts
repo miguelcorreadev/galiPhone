@@ -102,7 +102,7 @@ export class OperadoraComponent implements OnInit {
     this.operadoraForm.setValue({
       id: operadora.id,
       nombre: operadora.nombre,
-      tipo: operadora.tipo,
+      servicios: operadora.servicios,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }

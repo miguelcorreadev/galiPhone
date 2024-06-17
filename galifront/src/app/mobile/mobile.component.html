@@ -33,17 +33,13 @@
           </div>
           <div class="form-group">
             <mat-form-field appearance="fill">
-                <mat-label>Filtro Cliente</mat-label>
-                <input matInput type="text" formControlName="clienteFiltro" placeholder="Buscar cliente...">
-              </mat-form-field>
-              <mat-form-field appearance="fill">
-                <mat-label>Cliente</mat-label>
-                <mat-select formControlName="email">
-                  <mat-option *ngFor="let cliente of filteredClientes" [value]="cliente.email">
-                    {{ cliente.nombre }} {{ cliente.apellido }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <mat-label>Cliente</mat-label>
+              <mat-select formControlName="email">
+                <mat-option *ngFor="let cliente of clientes" [value]="cliente.email">
+                  {{ cliente.nombre }} {{ cliente.apellido }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Portabilidad</mat-label>
                 <input matInput type="text" formControlName="portabilidad" class="form-control">
@@ -63,7 +59,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Estado</mat-label>
               <mat-select formControlName="estado">
-                <mat-option *ngFor="let estado of estados" [value]="estado.nombre">
+                <mat-option *ngFor="let estado of operaciones" [value]="estado.nombre">
                   {{ estado.nombre }}
                 </mat-option>
               </mat-select>
@@ -92,6 +88,7 @@
               </mat-form-field>
         </div>
           <button mat-button color="primary" type="submit" [disabled]="mobileForm.invalid">Guardar</button>
+          <button mat-button color="warn" type="reset">Limpiar</button>
         </form>
       </div>
     </mat-card>

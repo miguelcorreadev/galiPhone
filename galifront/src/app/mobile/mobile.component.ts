@@ -54,13 +54,8 @@ export class MobileComponent implements OnInit {
       fechaAlta: ['', Validators.required],
       fechaModif: [''],
       fechaBaja: [''],
-      clienteFiltro: [''], // Campo para el filtro
     });
-    this.filteredClientes = this.clientes;
-
-    this.mobileForm.get('clienteFiltro').valueChanges.subscribe(value => {
-      this.filteredClientes = this.filterClientes(value);
-    });
+    
     this.loadMobiles();
     this.loadClientes();
     this.loadOperaciones();
@@ -122,12 +117,7 @@ export class MobileComponent implements OnInit {
       }
     );
   }
-  filterClientes(val: string) {
-    return this.clientes.filter(cliente => 
-      cliente.nombre.toLowerCase().includes(val.toLowerCase()) ||
-      cliente.apellido.toLowerCase().includes(val.toLowerCase())
-    );
-  }
+
   guardar(): void {
     if (this.mobileForm.valid) {
       this.mobileService.saveMobile(this.mobileForm.value).subscribe(
@@ -174,6 +164,7 @@ export class MobileComponent implements OnInit {
       operadora: mobile.operadora,
       fechaAlta: mobile.fechaAlta,
       fechaModif: mobile.fechaModif,
+      fechaBaja: mobile.fechaBaja,
     });
     this.panelOpenState = true; // Abrir panel de edición
   }

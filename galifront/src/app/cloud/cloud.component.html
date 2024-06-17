@@ -26,8 +26,6 @@
               <mat-label>Password</mat-label>
               <input matInput type="password" formControlName="password" class="form-control">
             </mat-form-field>
-          </div>
-          <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Nombre</mat-label>
               <input matInput type="text" formControlName="nombre" class="form-control">
@@ -38,26 +36,53 @@
               <mat-label>Storage</mat-label>
               <input matInput type="text" formControlName="storage" class="form-control">
             </mat-form-field>
-          </div>
-          <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Rol</mat-label>
               <input matInput type="text" formControlName="rol" class="form-control">
             </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Fecha Alta</mat-label>
-              <input matInput type="date" formControlName="fechaAlta" class="form-control">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Fecha Modificacion</mat-label>
-              <input matInput type="date" formControlName="fechaModif" class="form-control">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Fecha Baja</mat-label>
-              <input matInput type="date" formControlName="fechaBaja" class="form-control">
-            </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field appearance="fill">
+                <mat-label>Operación</mat-label>
+                <mat-select formControlName="operacion">
+                  <mat-option *ngFor="let operacion of operaciones" [value]="operacion.nombre">
+                    {{ operacion.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                  <mat-option *ngFor="let estado of estados" [value]="estado.nombre">
+                    {{ estado.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Operadora</mat-label>
+                <mat-select formControlName="operadora">
+                  <mat-option *ngFor="let operadora of operadoras" [value]="operadora.nombre">
+                    {{ operadora.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha Alta</mat-label>
+                <input matInput type="date" formControlName="fechaAlta" class="form-control">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                  <mat-label>Fecha Modificación</mat-label>
+                  <input matInput type="date" formControlName="fechaModif" class="form-control">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Fecha Baja</mat-label>
+                  <input matInput type="date" formControlName="fechaBaja" class="form-control">
+                </mat-form-field>
           </div>
           <button mat-button color="primary" type="submit" [disabled]="cloudForm.invalid">Guardar</button>
+          <button mat-button color="warn" type="reset">Limpiar</button>
         </form>
       </div>
     </mat-card>
@@ -90,7 +115,13 @@
     
         <ng-container matColumnDef="password">
           <th mat-header-cell mat-sort-header *matHeaderCellDef> Password </th>
-          <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="!showPassword">{{ '•'.repeat(element.password.length) }}</span>
+            <span *ngIf="showPassword">{{ element.password }}</span>
+            <button mat-icon-button (click)="togglePasswordVisibility()">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </td>
         </ng-container>
     
         <ng-container matColumnDef="nombre">
@@ -106,6 +137,18 @@
         <ng-container matColumnDef="rol">
           <th mat-header-cell mat-sort-header *matHeaderCellDef> Rol </th>
           <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+        </ng-container>
+        <ng-container matColumnDef="operacion">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> operacion</th>
+          <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>Estado </th>
+          <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        </ng-container>
+        <ng-container matColumnDef="operadora">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>Operadora </th>
+          <td mat-cell *matCellDef="let element"> {{element.operadora}} </td>
         </ng-container>
         <ng-container matColumnDef="fechaAlta">
           <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha  Alta </th>
