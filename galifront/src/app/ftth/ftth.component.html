@@ -1,4 +1,3 @@
-<p>FTTH</p>
 <mat-expansion-panel [(expanded)]="panelOpenState" >
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -34,11 +33,19 @@
           </div>
           <div class="form-group">
             <mat-form-field appearance="fill">
+              <mat-label>Filtro Cliente</mat-label>
+              <input matInput type="text" formControlName="clienteFiltro" placeholder="Buscar cliente...">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label>Cliente</mat-label>
               <mat-select formControlName="email">
-                <mat-option *ngFor="let cliente of clientes" [value]="cliente.email">{{ cliente.nombre }}</mat-option>
+                <mat-option *ngFor="let cliente of filteredClientes" [value]="cliente.email">
+                  {{ cliente.nombre }} {{ cliente.apellido }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+            <div class="form-group">
             <mat-form-field appearance="fill">
                 <mat-label>Portabilidad</mat-label>
                 <input matInput type="text" formControlName="portabilidad" class="form-control">
@@ -53,8 +60,6 @@
               <mat-label>Estado</mat-label>
               <input matInput type="text" formControlName="estado" class="form-control">
             </mat-form-field>
-          </div>
-          <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Operadora</mat-label>
               <input matInput type="text" formControlName="operadora" class="form-control">
@@ -166,7 +171,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
       </table>
-      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]">
         <ng-template mat-paginator-range-label>
           {{ paginator.pageIndex * paginator.pageSize + 1 }} - {{ (paginator.pageIndex + 1) * paginator.pageSize }} de {{ paginator.length }}
         </ng-template>

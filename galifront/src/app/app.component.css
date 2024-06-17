@@ -1,7 +1,7 @@
 .formularioRegistro{
     padding-left: 30%;
     padding-right: 30%;
-    margin-top: 3%;
+    margin-top: 0%;
 }
 
 table {
@@ -21,6 +21,7 @@ table {
 .mat-toolbar {
     background-color: #007BFF; /* Color azul */
     color: white; /* Color del texto */
+    padding-bottom: 0%;
   }
   .mat-menu-item:hover {
     background-color: #046ddd; 

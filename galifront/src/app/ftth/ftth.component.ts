@@ -22,7 +22,7 @@ export class FTTHComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = ['id', 'email', 'nombre', 'velocidad', 'fijo', 'portabilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
-
+  filteredClientes = [];
   panelOpenState = false;
 
   constructor(
@@ -45,6 +45,12 @@ export class FTTHComponent implements OnInit {
       fechaAlta: ['', Validators.required],
       fechaModif: [''],
       fechaBaja: [''],
+      clienteFiltro: [''], // Campo para el filtro
+    });
+    //this.filteredClientes = this.clientes;
+
+    this.ftthForm.get('clienteFiltro').valueChanges.subscribe(value => {
+      this.filteredClientes = this.filterClientes(value);
     });
 
     this.loadFTTHs();
@@ -74,7 +80,15 @@ export class FTTHComponent implements OnInit {
       }
     );
   }
-
+  filterClientes(val: string) {
+    if (!val || val.trim() === '') {
+      return this.clientes; // Devuelve todos los clientes si el valor del filtro está vacío
+    }
+    return this.clientes.filter(cliente => 
+      cliente.nombre.toLowerCase().includes(val.toLowerCase()) ||
+      cliente.apellido.toLowerCase().includes(val.toLowerCase())
+    );
+  }
   guardar(): void {
     if (this.ftthForm.valid) {
       this.ftthService.saveFTTH(this.ftthForm.value).subscribe(

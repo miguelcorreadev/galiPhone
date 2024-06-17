@@ -1,1 +1,193 @@
-<p>mobile works!</p>
+<p>Mobile</p>
+<mat-expansion-panel [(expanded)]="panelOpenState" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Agregar Mobile
+      </mat-panel-title>
+      <mat-panel-description>
+        Click aqui...
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Crear Mobile</mat-card-title>
+        <mat-card-subtitle>Todos los campos son obligatorios</mat-card-subtitle>
+      </mat-card-header>
+  
+      <div class="formularioRegistro">
+        <form [formGroup]="mobileForm" (ngSubmit)="guardar()">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" formControlName="nombre" class="form-control">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Capacidad GB</mat-label>
+              <input matInput type="text" formControlName="capacidad" class="form-control">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Número Movil</mat-label>
+                <input matInput type="text" formControlName="mobile" class="form-control">
+              </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Filtro Cliente</mat-label>
+                <input matInput type="text" formControlName="clienteFiltro" placeholder="Buscar cliente...">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="email">
+                  <mat-option *ngFor="let cliente of filteredClientes" [value]="cliente.email">
+                    {{ cliente.nombre }} {{ cliente.apellido }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Portabilidad</mat-label>
+                <input matInput type="text" formControlName="portabilidad" class="form-control">
+              </mat-form-field>
+              
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Operación</mat-label>
+                <input matInput type="text" formControlName="operacion" class="form-control">
+              </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Estado</mat-label>
+              <input matInput type="text" formControlName="estado" class="form-control">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Operadora</mat-label>
+              <input matInput type="text" formControlName="operadora" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Alta</mat-label>
+              <input matInput type="date" formControlName="fechaAlta" class="form-control">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha Modificación</mat-label>
+                <input matInput type="date" formControlName="fechaModif" class="form-control">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha Baja</mat-label>
+                <input matInput type="date" formControlName="fechaBaja" class="form-control">
+              </mat-form-field>
+        </div>
+          <button mat-button color="primary" type="submit" [disabled]="mobileForm.invalid">Guardar</button>
+        </form>
+      </div>
+    </mat-card>
+  
+  </mat-expansion-panel>
+  
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Mobile registrados</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <div class="mat-elevation-z8">
+      <table mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+    
+        <ng-container matColumnDef="id">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="capacidad">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> Capacidad GB </th>
+          <td mat-cell *matCellDef="let element"> {{element.capacidad}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Cliente </th>
+          <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>Número Movil </th>
+          <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="portabilidad">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Portabilidad </th>
+            <td mat-cell *matCellDef="let element"> {{element.portabilidad}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="operacion">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> operacion</th>
+            <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+          </ng-container>
+          <ng-container matColumnDef="operadora">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Operadora </th>
+            <td mat-cell *matCellDef="let element"> {{element.operadora}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaAlta">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha  Alta </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaAlta}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaModif">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha Modificación </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaModif}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaBaja">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha Baja </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaBaja}} </td>
+          </ng-container>
+    
+        <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef> Opciones </th>
+          <td mat-cell *matCellDef="let element">
+    
+            <div class="example-button-container">
+              <button mat-mini-fab color="basic" aria-label="Example icon button with a delete icon"
+                (click)="editar(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon"
+                (click)="eliminar(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+      </table>
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+        <ng-template mat-paginator-range-label>
+          {{ paginator.pageIndex * paginator.pageSize + 1 }} - {{ (paginator.pageIndex + 1) * paginator.pageSize }} de {{ paginator.length }}
+        </ng-template>
+      
+        <button mat-icon-button (click)="goToFirstPage()" [disabled]="paginator.pageIndex === 0">
+            <mat-icon>first_page</mat-icon>
+          </button>
+          <button mat-icon-button (click)="goToPreviousPage()" [disabled]="paginator.pageIndex === 0">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button mat-icon-button (click)="goToNextPage()" [disabled]="!paginator.hasNextPage()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+          <button mat-icon-button (click)="goToLastPage()" [disabled]="!paginator.hasNextPage()">
+            <mat-icon>last_page</mat-icon>
+          </button>
+      </mat-paginator>
+    </div>
+  </mat-card>

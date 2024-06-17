@@ -1,16 +1,12 @@
 <p>
   <mat-toolbar>
     <span><a mat-button routerLink="/inicio" class="mat-button-link">GaliPhone</a></span>
-    
-    <!-- Enlace para navegar a ClienteComponent -->
-
     <a mat-button routerLink="/clientes" class="mat-button-link">CLIENTES</a>
-    <a mat-button routerLink="/productos" class="mat-button-link">PRODUCTOS</a>
     <mat-menu #menu="matMenu" class="custom-menu">
       <button  class="custom-menu" mat-menu-item [routerLink]="'/ftth'">
         FTTH
       </button>
-      <button  class="custom-menu" mat-menu-item [routerLink]="'/movil'">
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/mobile'">
         MÓVIL
       </button>
       <button  class="custom-menu" mat-menu-item [routerLink]="'/cloud'">
@@ -20,14 +16,25 @@
     <button class="custom-menu" mat-button [matMenuTriggerFor]="menu">
       ÓRDENES
     </button>
+
+    <mat-menu #menu="matMenu" class="custom-menu">
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/productos'">
+        PRODUCTOS
+      </button>
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/operadora'">
+        OPERADORAS
+      </button>
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/estado'">
+        ESTADOS
+      </button>
+      <button  class="custom-menu" mat-menu-item [routerLink]="'/operacion'">
+        OPERACION
+      </button>
+    </mat-menu>
+    <button class="custom-menu" mat-button [matMenuTriggerFor]="menu">
+      ADMINISTRAR
+    </button>
   </mat-toolbar>
 </p>
-
-
-  
-
-    
-        
-       
 
 <router-outlet></router-outlet>
