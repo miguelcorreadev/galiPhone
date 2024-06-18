@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,6 +7,8 @@ import { ProductoService } from '../services/producto/producto.service';
 import { ClienteService } from '../services/cliente/cliente.service';
 import { AfterViewInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion'; 
+import { ListarProductosService } from '../services/listarProductos/listarProductos.service';
+import { ListarProductosComponent } from '../listar-productos/listar-productos.component';
 
 @Component({
   selector: 'app-cliente',
@@ -17,12 +19,15 @@ export class ClienteComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(ListarProductosComponent) listarProductosComponent: ListarProductosComponent;
+
 
 
   clienteForm: FormGroup;
   producto: any;
   clientes: any;
   dataSource: MatTableDataSource<any>;
+
 
   displayedColumns: string[] = ['id', 'name', 'apellido', 'email', 'direccion', 'telefono', 'options'];
 
@@ -32,13 +37,12 @@ export class ClienteComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public productoService: ProductoService,
-    public clienteService: ClienteService
+    public clienteService: ClienteService,
+    private cdRef: ChangeDetectorRef,
   ) {
 
   }
-  ngAfterViewInit(): void {
-    this.setDataAndPagination();
-  }
+ 
   ngOnInit(): void {
 
     this.clienteForm = this.fb.group({
@@ -46,8 +50,8 @@ export class ClienteComponent implements OnInit {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       email: ['', Validators.required],
-      direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
+      direccion: [''],
+      telefono: [''],
     });
 
     this.productoService.getAllProductos().subscribe(resp => {
@@ -70,7 +74,7 @@ export class ClienteComponent implements OnInit {
     const filtroValor = this.filtroCliente.trim().toLowerCase();
     this.dataSource.filter = filtroValor;
   }
-
+ 
   /**
    * Metodo que llama el boton de guardar. Enviamos la peticion la servicio, luego reseteamos el formulario, filtramos
    * y reseteamos la paginacion.
@@ -104,6 +108,8 @@ export class ClienteComponent implements OnInit {
    * Seteamos los datos en el formulario con la cliente que vamos a editar.
    * @param cliente parametro donde se indica la cliente a eliminar.
    */
+
+  
   editar(cliente){
     this.clienteForm.setValue({
       id:cliente.id,
@@ -115,6 +121,18 @@ export class ClienteComponent implements OnInit {
     });
     this.panelOpenState = !this.panelOpenState;
   }
+ // Método para listar productos del cliente
+ listar(cliente): void {
+  if (this.listarProductosComponent && typeof this.listarProductosComponent.getAllProducts === 'function') {
+    this.listarProductosComponent.getAllProducts(cliente.email);
+  } else {
+    console.error('listarProductosComponent no está definido o no tiene el método getAllProducts.');
+  }
+}
+ngAfterViewInit(cliente): void {
+  this.setDataAndPagination();
+  this.listar(this.clienteForm.get('email').value);
+}
 
   setDataAndPagination(){
     this.dataSource = new MatTableDataSource(this.clientes);
@@ -149,4 +167,5 @@ export class ClienteComponent implements OnInit {
     this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
     this.dataSource.sort = this.sort;
   }
+
 }

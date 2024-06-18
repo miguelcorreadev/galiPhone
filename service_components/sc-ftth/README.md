@@ -1,6 +1,6 @@
 # GaliPhone
 
-## Requirements
+## Requirimientos
 
 For building and running the application you need:
 
@@ -8,30 +8,28 @@ For building and running the application you need:
 - [Maven 3](https://maven.apache.org)
 - PostgreSQL
 
-You will need to setup your own database or create a database with the following configuration
+Necesitará configurar su base de datos o crear una base de datos con la siguiente configuración
 ```
-spring.datasource.url=jdbc:postgresql://localhost:5432/persona-db
+spring.datasource.url=jdbc:postgresql://localhost:5432/galiphone
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 ```
-## Running the application locally
+## Ejecutar la aplicación localmente
 
-There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `xyz.yoandroide.persona.PersonaBackendApplication` class from your IDE.
+Existen varias formas de ejecutar una aplicación Spring Boot en la máquina local. Una forma es ejecutar el método `main` en la clase `galidev.galiphone.mc.GaliPhoneApplication` desde su IDE.
 
-Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
+Alternativamente, puede usar el [complemento Maven de Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) de la siguiente manera:
 
 ```shell
 mvn spring-boot:run
 ```
-
 ### Running port
 - default spring boot config
-  http://localhost:8080/
+  http://localhost:8081/
 
-### Swagger url
-- default swagger url
-  http://localhost:8080/swagger-ui/
-
-## About this project
-You can download the front-end project [personafront](https://github.com/guerreroeileen/personafront) or get more information in Yo Androide [Curso completo de SPRING BOOT CRUD + JPA + POSTGRESQL +REST + Angular
-](https://yoandroide.xyz/curso-completo-de-spring-boot-crud-jpa-postgresql-rest-angular/)
+## Docker-compose
+Antes de iniciar la aplicación tendremos que ejecutar o levantar el docker-compose para iniciar el contenedor de PostGres.
+```shell
+docker-compose up -d (Levantar docker-compose)
+         o
+docker-compose down (Parar docker-compose)

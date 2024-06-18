@@ -27,7 +27,7 @@ public class OperacionREST {
 	private ResponseEntity<Operacion> saveOperacion (@RequestBody Operacion operacion){
 		try {
 			Operacion operacionGuardado = operacionService.save(operacion);
-		return ResponseEntity.created(new URI("/operaciones/"+operacionGuardado.getId())).body(operacionGuardado);
+		return ResponseEntity.created(new URI("/operacion/"+operacionGuardado.getId())).body(operacionGuardado);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
