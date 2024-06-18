@@ -10,6 +10,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { OperadoraComponent } from './operadora/operadora.component';
 import { OperacionComponent } from './operacion/operacion.component';
 import { EstadoComponent } from './estado/estado.component';
+import { ListarProductosComponent } from './listar-productos/listar-productos.component';
 const routes: Routes = [
   { path: 'clientes', component: ClienteComponent }, 
   { path: 'productos', component: ProductoComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'operadora', component: OperadoraComponent }, 
   { path: 'operacion', component: OperacionComponent }, 
   { path: 'estado', component: EstadoComponent }, 
+  { path: 'listar-productos', component: ListarProductosComponent },
   { path: '', redirectTo: '../inicio', pathMatch: 'full' }, 
   { path: '**', component: PageNotFoundComponent } 
 ];

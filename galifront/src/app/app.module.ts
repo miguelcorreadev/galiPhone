@@ -30,6 +30,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { OperadoraComponent } from './operadora/operadora.component';
 import { OperacionComponent } from './operacion/operacion.component';
 import { EstadoComponent } from './estado/estado.component';
+import { ListarProductosComponent } from './listar-productos/listar-productos.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { EstadoComponent } from './estado/estado.component';
     OperacionComponent,
     PageNotFoundComponent,
     EstadoComponent,
+    ListarProductosComponent,
   ],
   imports: [
     BrowserModule,
