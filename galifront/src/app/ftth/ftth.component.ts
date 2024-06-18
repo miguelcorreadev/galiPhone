@@ -8,6 +8,7 @@ import { FTTHService } from '../services/ftth/ftth.service';
 import { OperadoraService } from '../services/operadora/operadora.service';
 import { OperacionService } from '../services/operacion/operacion.service';
 import { EstadoService } from '../services/estado/estado.service';
+import { ProductoService } from '../services/producto/producto.service';
 
 @Component({
   selector: 'app-ftth',
@@ -25,6 +26,7 @@ export class FTTHComponent implements OnInit {
   operaciones: any[];
   operadoras: any[];
   estados: any[];
+  productos: any[];
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = ['id', 'email', 'nombre', 'velocidad', 'fijo', 'portabilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
@@ -38,6 +40,7 @@ export class FTTHComponent implements OnInit {
     public operacionService: OperacionService,
     public operadoraService: OperadoraService,
     public estadoService: EstadoService,
+    public productoService: ProductoService,
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +65,7 @@ export class FTTHComponent implements OnInit {
     this.loadOperaciones();
     this.loadOperadoras();
     this.loadEstados();
+    this.loadProductos();
 
   
   }
@@ -74,6 +78,16 @@ export class FTTHComponent implements OnInit {
       },
       error => {
         console.error('Error loading FTTH:', error);
+      }
+    );
+  }
+  loadProductos(): void {
+    this.productoService.getAllProductos().subscribe(
+      resp => {
+        this.productos = resp;
+      },
+      error => {
+        console.error('Error loading operaciones:', error);
       }
     );
   }

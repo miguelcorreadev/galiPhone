@@ -8,6 +8,7 @@ import { CloudService } from '../services/cloud/cloud.service';
 import { OperadoraService } from '../services/operadora/operadora.service';
 import { OperacionService } from '../services/operacion/operacion.service';
 import { EstadoService } from '../services/estado/estado.service';
+import { ProductoService } from '../services/producto/producto.service';
 
 @Component({
   selector: 'app-cloud',
@@ -26,6 +27,7 @@ export class CloudComponent implements OnInit {
   operaciones: any[];
   operadoras: any[];
   estados: any[];
+  productos: any[];
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = ['id', 'email', 'password', 'nombre', 'storage', 'rol', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
@@ -40,6 +42,7 @@ export class CloudComponent implements OnInit {
     public operacionService: OperacionService,
     public operadoraService: OperadoraService,
     public estadoService: EstadoService,
+    public productoService: ProductoService,
   ) {
 
   }
@@ -73,6 +76,7 @@ export class CloudComponent implements OnInit {
     this.loadOperaciones();
     this.loadOperadoras();
     this.loadEstados();
+    this.loadProductos();
 
     this.cloudService.getAllCloud().subscribe(resp => {
       this.clouds = resp;
@@ -99,7 +103,16 @@ export class CloudComponent implements OnInit {
       }
     );
   }
-
+  loadProductos(): void {
+    this.productoService.getAllProductos().subscribe(
+      resp => {
+        this.productos = resp;
+      },
+      error => {
+        console.error('Error loading operaciones:', error);
+      }
+    );
+  }
   loadClientes(): void {
     this.clienteService.getAllClientes().subscribe(
       resp => {

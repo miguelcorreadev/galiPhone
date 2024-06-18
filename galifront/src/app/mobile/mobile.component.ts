@@ -8,6 +8,7 @@ import { MobileService } from '../services/mobile/mobile.service';
 import { OperadoraService } from '../services/operadora/operadora.service';
 import { OperacionService } from '../services/operacion/operacion.service';
 import { EstadoService } from '../services/estado/estado.service';
+import { ProductoService } from '../services/producto/producto.service';
 
 @Component({
   selector: 'app-mobile',
@@ -25,6 +26,7 @@ export class MobileComponent implements OnInit {
   operaciones: any[];
   operadoras: any[];
   estados: any[];
+  productos: any[];
   dataSource: MatTableDataSource<any>;
 
   displayedColumns: string[] = ['id', 'email', 'nombre', 'capacidad', 'mobile', 'portabilidad', 'operacion', 'estado', 'operadora', 'fechaAlta', 'fechaModif', 'fechaBaja', 'options'];
@@ -38,6 +40,7 @@ export class MobileComponent implements OnInit {
     public operacionService: OperacionService,
     public operadoraService: OperadoraService,
     public estadoService: EstadoService,
+    public productoService: ProductoService,
   ) {}
 
   ngOnInit(): void {
@@ -61,7 +64,7 @@ export class MobileComponent implements OnInit {
     this.loadOperaciones();
     this.loadOperadoras();
     this.loadEstados();
-    
+    this.loadProductos();
   }
 
 
@@ -91,6 +94,16 @@ export class MobileComponent implements OnInit {
     this.operacionService.getAllOperaciones().subscribe(
       resp => {
         this.operaciones = resp;
+      },
+      error => {
+        console.error('Error loading operaciones:', error);
+      }
+    );
+  }
+  loadProductos(): void {
+    this.productoService.getAllProductos().subscribe(
+      resp => {
+        this.productos = resp;
       },
       error => {
         console.error('Error loading operaciones:', error);

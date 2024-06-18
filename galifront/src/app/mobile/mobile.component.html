@@ -20,7 +20,11 @@
           <div class="form-group">
             <mat-form-field appearance="fill">
               <mat-label>Nombre</mat-label>
-              <input matInput type="text" formControlName="nombre" class="form-control">
+              <mat-select formControlName="producto">
+                <mat-option *ngFor="let producto of productos" [value]="producto.nombre">
+                  {{ producto.nombre }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Capacidad GB</mat-label>
@@ -59,7 +63,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Estado</mat-label>
               <mat-select formControlName="estado">
-                <mat-option *ngFor="let estado of operaciones" [value]="estado.nombre">
+                <mat-option *ngFor="let estado of estados" [value]="estado.nombre">
                   {{ estado.nombre }}
                 </mat-option>
               </mat-select>

@@ -69,7 +69,7 @@ export class ListarProductosComponent implements OnInit {
       resp => {
         this.producto = resp;
         this.listarProductos = resp; // Asigna los productos a listarProductos
-        this.setDataAndPagination(); // Llama a setDataAndPagination después de obtener los productos
+        this.setDataAndPagination(); // Actualiza la tabla después de obtener los productos
         this.cdRef.detectChanges(); // Forzar detección de cambios después de la actualización
       },
       error => {
